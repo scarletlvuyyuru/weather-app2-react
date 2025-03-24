@@ -10,4 +10,19 @@
     font-size: 16px;
     font-weight: 200;
     line-height: 19px;
+    
+  }
+
+  .searchB {
+    margin:5px; 
+    padding: 5px 10px;
+    background-color: lightblue;
+    border-radius: 5px;
+  }
+
+  
+
+  .search {
+    line-height: 1.5;
+    
   }

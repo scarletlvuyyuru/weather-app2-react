@@ -14,12 +14,7 @@ function getCorrectCity(city) {
 }
 export default function Search({ setWeatherData}) {
   const [city, setCity] = useState("");
-  const [temperature, setTemperature] = useState(null);
-  const [humidity, setHumidity] = useState(null);
-  const [wind, setWind] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [icon, setIcon] = useState(null);
+  
 
   function updateCity(event) {
     setCity(event.target.value);
@@ -32,7 +27,7 @@ export default function Search({ setWeatherData}) {
   }
 function fetchTemperature() {
     if (!city.trim()) return; 
-    setLoading(true);
+   
 
     const correctedCity = getCorrectCity(city);
     const url = `https://api.shecodes.io/weather/v1/current?query=${correctedCity}&key=61e11tf2503b89498d076obf6bbaf870&units=imperial`;
@@ -49,11 +44,11 @@ function fetchTemperature() {
       date: new Date(data.time * 1000).toLocaleString(),
     });
     setCity("");
-    setLoading(false);
+    
   })
   .catch(() => {
         alert("City not found. Please try again.");
-        setLoading(false);
+       
    });
 }
 

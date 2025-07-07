@@ -28,7 +28,7 @@ function App() {
       });
       setLoading(false); 
     });
-  }, []);
+  }, [units]);
 const videoRef = useRef(null);
 
 useEffect(() => {

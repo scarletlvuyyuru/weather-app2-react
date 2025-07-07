@@ -33,7 +33,7 @@ const videoRef = useRef(null);
 
 useEffect(() => {
   if (videoRef.current) {
-    videoRef.current.playbackRate = 0.3; 
+    videoRef.current.playbackRate = 0.5; 
   }
 }, []);
   return (

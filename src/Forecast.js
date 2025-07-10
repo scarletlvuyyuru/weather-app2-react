@@ -60,16 +60,32 @@ export default function Forecast({weatherData}) {
     </div>
 
     <div className="flex-container">
-      {[...Array(6)].map((_, i) => (
-        <div className="col" key={i}>
-          DoW
-          <ul className="items">
-            <li>Temperature</li>
-            <li>Icon</li>
-          </ul>
-        </div>
-      ))}
-    </div>
+  {weatherData.forecast.map((day, index) => {
+    const date = new Date(day.time * 1000);
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayName = days[date.getDay()];
+
+    const dailyTemp = isCelsius
+      ? Math.round((day.temperature.day - 32) * 5 / 9)
+      : Math.round(day.temperature.day);
+
+    return (
+      <div className="col" key={index}>
+        <h4>{dayName}</h4>
+        <img
+          src={`http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${day.condition.icon}.png`}
+          alt={day.condition.description}
+          width="50"
+        />
+        <ul className="items">
+          <li>{dailyTemp}°</li>
+          <li>{day.condition.description}</li>
+        </ul>
+      </div>
+    );
+  })}
+</div>
+
 
     <div>
       <p className="updatedDetails">Updated on {weatherData.date}</p>

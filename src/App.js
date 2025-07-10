@@ -10,13 +10,16 @@ function App() {
   const [units, setUnit] = useState("imperial");
  
   useEffect(() => {
-    const defaultCity = "New York";
-    
-    
-    const url = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=61e11tf2503b89498d076obf6bbaf870&units=${units}`;
+  const defaultCity = "New York";
+  const currentUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=61e11tf2503b89498d076obf6bbaf870&units=${units}`;
 
-    axios.get(url).then((response) => {
-      const data = response.data;
+  axios.get(currentUrl).then((response) => {
+    const data = response.data;
+    const forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${data.coordinates.longitude}&lat=${data.coordinates.latitude}&key=61e11tf2503b89498d076obf6bbaf870&units=${units}`;
+    
+    axios.get(forecastUrl).then((forecastResponse) => {
+      const forecast = forecastResponse.data.daily.slice(0, 5);
+
       setWeatherData({
         city: data.city,
         temperature: data.temperature.current,
@@ -25,10 +28,16 @@ function App() {
         description: data.condition.description,
         imgUrl: data.condition.icon_url,
         date: new Date(data.time * 1000).toLocaleString(),
+        forecast: forecast, // 👈 now included
       });
-      setLoading(false); 
+
+      setLoading(false);
     });
+  });
   }, [units]);
+
+
+
 const videoRef = useRef(null);
 
 useEffect(() => {
